@@ -5,7 +5,10 @@ class LostController < UIViewController
   def viewDidLoad
     super
     map = create_map
+    add_orphans map
     BW::Location.get(significant: true) do |result|
+      p result[:to].latitude
+      p result[:to].longitude
       map.region = CoordinateRegion.new result[:to], ZoomLevel
     end
 
@@ -18,5 +21,9 @@ class LostController < UIViewController
     map.delegate = self
     map.shows_user_location = true
     map
+  end
+
+  def add_orphans map
+    Orphan::All.each { |orphan| map.addAnnotation orphan }  
   end
 end
