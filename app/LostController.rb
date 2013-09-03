@@ -24,6 +24,6 @@ class LostController < UIViewController
   end
 
   def add_orphans map
-    Orphan::All.each { |orphan| map.addAnnotation orphan }  
+    Orphanage.new.all { |orphan| map.addAnnotation orphan }  
   end
 end
