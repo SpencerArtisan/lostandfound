@@ -1,9 +1,14 @@
 class SplashController < UIViewController
   def viewDidLoad
     super
+    self.navigationController.navigationBarHidden = true
     image = UIImage.imageNamed 'LandingPage'
     self.view.backgroundColor = UIColor.alloc.initWithPatternImage image
     add_lost_button
+  end
+  
+  def viewWillAppear(animated)
+    self.navigationController.navigationBarHidden = true
   end
 
   def add_lost_button

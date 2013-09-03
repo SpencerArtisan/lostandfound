@@ -6,7 +6,6 @@ class AppDelegate
 
     splash_controller = SplashController.alloc.initWithNibName nil, bundle: nil
     navigation_controller = UINavigationController.alloc.initWithRootViewController splash_controller
-    navigation_controller.navigationBarHidden = true
     @window.rootViewController = navigation_controller
 
     true

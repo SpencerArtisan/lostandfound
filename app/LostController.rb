@@ -4,6 +4,7 @@ class LostController < UIViewController
 
   def viewDidLoad
     super
+    self.navigationController.navigationBarHidden = false
     map = create_map
     add_orphans map
     BW::Location.get(significant: true) do |result|
