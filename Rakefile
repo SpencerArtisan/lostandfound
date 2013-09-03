@@ -13,7 +13,8 @@ end
 
 Motion::Project::App.setup do |app|
   # Use `rake config' to see complete project settings.
-  app.name = 'lostandfound'
-  icons = ['Icon.png']
-  prerendered_icon = true
+  app.name = "Lost+Found"
+  app.identifier = 'com.yourcompany.lostandfound'
+  app.icons = ['Icon.png']
+  app.prerendered_icon = true
 end

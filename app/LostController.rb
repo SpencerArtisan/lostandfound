@@ -5,26 +5,31 @@ class LostController < UIViewController
   def viewDidLoad
     super
     self.navigationController.navigationBarHidden = false
-    map = create_map
-    add_orphans map
+    create_map
+    add_orphans
+    center_map
+    self.view.addSubview @map
+  end
+  
+  def center_map
+    @@region ||= nil
+    puts "RETURN ON REGION #{@@region}"
+    @map.region = @@region if @@region
     BW::Location.get(significant: true) do |result|
-      p result[:to].latitude
-      p result[:to].longitude
-      map.region = CoordinateRegion.new result[:to], ZoomLevel
+      @@region = CoordinateRegion.new result[:to], ZoomLevel
+      @map.region = @@region
+      puts "CENTRE ON REGION #{@@region}"
     end
-
-    self.view.addSubview map
   end
 
   def create_map
-    map = MapView.new
-    map.frame = self.view.frame
-    map.delegate = self
-    map.shows_user_location = true
-    map
+    @map = MapView.new
+    @map.frame = self.view.frame
+    @map.delegate = self
+    @map.shows_user_location = true
   end
 
-  def add_orphans map
-    Orphanage.new.all { |orphan| map.addAnnotation orphan }  
+  def add_orphans
+    Orphanage.new.all { |orphan| @map.addAnnotation orphan }  
   end
 end
