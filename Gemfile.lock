@@ -2,6 +2,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     bubble-wrap (1.3.0)
+    chronic (0.9.1)
     codependency (2.0.0)
     map-kit-wrapper (0.0.5)
       codependency (= 2.0.0)
@@ -14,6 +15,7 @@ PLATFORMS
 
 DEPENDENCIES
   bubble-wrap
+  chronic
   map-kit-wrapper
   motion-stump
   rake
