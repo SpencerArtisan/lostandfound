@@ -8,7 +8,7 @@ class Orphanage
       puts "JSON FROM SERVICE: #{json}"
       json_orphans = BW::JSON.parse json
       json_orphans.each do |json_orphan| 
-        orphan = Orphan.new json_orphan['latitude'], json_orphan['longitude'], json_orphan['description'], nil
+        orphan = Orphan.new json_orphan['latitude'], json_orphan['longitude'], json_orphan['description'], json_orphan['image_url'], json_orphan['created_at']
         puts "YIELDING ORPHAN: #{orphan.inspect}"
         block.call orphan
       end
