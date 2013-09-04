@@ -28,6 +28,7 @@ class SplashController < UIViewController
     found_button.when(UIControlEventTouchUpInside) do
       controller = UIApplication.sharedApplication.delegate.found_controller
       navigationController.pushViewController controller, animated:true
+      controller.take_picture
     end
   end
 end
