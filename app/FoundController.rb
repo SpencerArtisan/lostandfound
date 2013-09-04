@@ -15,9 +15,11 @@ class FoundController < UIViewController
   end
 
   def add_image_view(image)
-    @image_view.removeFromSuperview if @image_view
-    @image_view = UIImageView.alloc.initWithImage(image)
-    @image_view.frame = [[10, 60], [300, 340]]
-    view.addSubview(@image_view)
+    controller = UIApplication.sharedApplication.delegate.polaroid_controller
+    navigationController.pushViewController controller, animated:true
+    #@image_view.removeFromSuperview if @image_view
+    #@image_view = UIImageView.alloc.initWithImage(image)
+    #@image_view.frame = [[10, 60], [300, 340]]
+    #view.addSubview(@image_view)
   end
 end

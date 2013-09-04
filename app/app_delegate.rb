@@ -1,17 +1,14 @@
 class AppDelegate
   def application(application, didFinishLaunchingWithOptions:launchOptions)
-    # UIScreen describes the display our app is running on
     @window = UIWindow.alloc.initWithFrame(UIScreen.mainScreen.bounds)
     @window.makeKeyAndVisible
-
-    splash_controller = SplashController.alloc.initWithNibName nil, bundle: nil
-    navigation_controller = UINavigationController.alloc.initWithRootViewController splash_controller
-    @window.rootViewController = navigation_controller
-    @window.rootViewController.wantsFullScreenLayout = true
-
+    @window.rootViewController = UINavigationController.alloc.initWithRootViewController splash_controller
     true
   end
 
+  def splash_controller
+    @splash_controller ||= SplashController.alloc.init
+  end
 
   def lost_controller
     @lost_controller ||= LostController.alloc.init
@@ -19,5 +16,9 @@ class AppDelegate
 
   def found_controller
     @found_controller ||= FoundController.alloc.init
+  end
+
+  def polaroid_controller
+    @polaroid_controller ||= PolaroidController.alloc.init
   end
 end
