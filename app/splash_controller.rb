@@ -16,8 +16,8 @@ class SplashController < UIViewController
     lost_button.frame = [[40, 100], [200, 90]]
     self.view.addSubview lost_button
     lost_button.when(UIControlEventTouchUpInside) do
-      lost_controller = LostController.alloc.initWithNibName nil, bundle: nil
-      self.navigationController.pushViewController lost_controller, animated: true
+      controller = UIApplication.sharedApplication.delegate.lost_controller
+      navigationController.pushViewController controller, animated:true
     end
   end
 end

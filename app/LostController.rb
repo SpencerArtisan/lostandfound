@@ -10,6 +10,10 @@ class LostController < UIViewController
     center_map
     self.view.addSubview @map
   end
+
+  def viewWillAppear(animated)
+    self.navigationController.navigationBarHidden = false
+  end
   
   def center_map
     @@region ||= nil
