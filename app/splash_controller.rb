@@ -4,6 +4,7 @@ class SplashController < UIViewController
     image = UIImage.imageNamed 'LandingPage'
     self.view.backgroundColor = UIColor.alloc.initWithPatternImage image
     add_lost_button
+    add_found_button
   end
   
   def viewWillAppear(animated)
@@ -16,6 +17,16 @@ class SplashController < UIViewController
     self.view.addSubview lost_button
     lost_button.when(UIControlEventTouchUpInside) do
       controller = UIApplication.sharedApplication.delegate.lost_controller
+      navigationController.pushViewController controller, animated:true
+    end
+  end
+
+  def add_found_button
+    found_button = UIButton.buttonWithType UIButtonTypeRoundedRect
+    found_button.frame = [[120, 300], [200, 90]]
+    self.view.addSubview found_button
+    found_button.when(UIControlEventTouchUpInside) do
+      controller = UIApplication.sharedApplication.delegate.found_controller
       navigationController.pushViewController controller, animated:true
     end
   end

@@ -12,7 +12,12 @@ class AppDelegate
     true
   end
 
+
   def lost_controller
     @lost_controller ||= LostController.alloc.init
+  end
+
+  def found_controller
+    @found_controller ||= FoundController.alloc.init
   end
 end
