@@ -22,7 +22,7 @@ class SplashController < UIViewController
   end
 
   def add_found_button
-    found_button = UIButton.buttonWithType UIButtonTypeRoundedRect
+    found_button = UIButton.buttonWithType UIButtonTypeCustom
     found_button.frame = [[120, 300], [200, 90]]
     self.view.addSubview found_button
     found_button.when(UIControlEventTouchUpInside) do
