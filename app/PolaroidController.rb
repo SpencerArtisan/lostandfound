@@ -6,6 +6,7 @@ class PolaroidController < UIViewController
     addDescriptionEntryBox
     #addSaveButton
     #addCancelButton
+    save
   end
 
   def createBackground
@@ -16,7 +17,7 @@ class PolaroidController < UIViewController
   def setImage image
     @image_view.removeFromSuperview if @image_view
     @image_view = UIImageView.alloc.initWithImage(image)
-    @image_view.frame = [[39, 30], [246, 240]]
+    @image_view.frame = [[38, 30], [247, 240]]
     view.addSubview(@image_view)
 
     image = UIImage.imageNamed 'SmallPin'
@@ -65,8 +66,8 @@ class PolaroidController < UIViewController
     found_where = @locationManager.location.coordinate
     puts "found here #{found_where.inspect}"
     orphan = Orphan.new found_where.latitude, found_where.longitude, 'thing', 'image url'
-    navigationController.popToRootViewControllerAnimated true
-    #Orphanage.new.add orphan
+    #navigationController.popToRootViewControllerAnimated true
+    Orphanage.new.add orphan
   end
 
   def cancel

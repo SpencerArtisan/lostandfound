@@ -8,7 +8,9 @@ class OrphanageServer
   end
 
   def save orphan
-    BW::HTTP.post('http://lostandfound.eu01.aws.af.cm/orphans.json', {payload: "{orphan: #{orphan}}"}) do |response|
+    payload = {payload: {orphan: orphan}}
+    puts "Posting new orphan #{payload}"
+    BW::HTTP.post('http://lostandfound.eu01.aws.af.cm/orphans.json', payload) do |response|
       p response
     end
   end

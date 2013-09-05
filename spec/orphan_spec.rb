@@ -19,4 +19,10 @@ describe Orphan do
     @orphan.found_at = @today_1540 - ( 60 * 60 * 24 * 2)
     @orphan.subtitle.should == 'Found 2 days ago at 15:40'
   end
+
+  it 'should handle BST' do
+    local = Time.local @now.year, @now.month, @now.mday, 15, 40
+    @orphan.found_at = local
+    @orphan.subtitle.should == 'Found today at 16:40'
+  end
 end

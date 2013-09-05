@@ -16,7 +16,7 @@ Orphan = Struct.new(:lat, :lon, :description, :image_url, :found_at) do
           when 1; 'yesterday'
           else; "#{days_ago} days ago"
           end
-    time = found_at.strftime('%H:%M')
+    time = (found_at + found_at.utc_offset).strftime('%H:%M')
     "Found #{day} at #{time}"
   end
 end
