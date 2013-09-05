@@ -4,9 +4,6 @@ class PolaroidController < UIViewController
     createBackground
     trackLocation
     addDescriptionEntryBox
-    #addSaveButton
-    #addCancelButton
-    save
   end
 
   def createBackground
@@ -23,7 +20,7 @@ class PolaroidController < UIViewController
     image = UIImage.imageNamed 'SmallPin'
     @pin_view.removeFromSuperview if @pin_view
     @pin_view = UIImageView.alloc.initWithImage(image)
-    @pin_view.frame = [[130, 3], [38, 38]]
+    @pin_view.frame = [[140, 3], [38, 38]]
     view.addSubview(@pin_view)
   end
 
@@ -39,38 +36,19 @@ class PolaroidController < UIViewController
     @description_input.font = UIFont.fontWithName 'MarkerFelt-Thin', size: 24
     @description_input.textAlignment = UITextAlignmentCenter
     @description_input.becomeFirstResponder
+    @description_input.delegate = self
     self.view.addSubview @description_input
   end
 
-  def addSaveButton
-    save_button = UIButton.buttonWithType UIButtonTypeRoundedRect
-    save_button.setTitle 'Save', forState:UIControlStateNormal
-    save_button.frame = [[20, 10], [100, 30]]
-    self.view.addSubview save_button
-    save_button.when(UIControlEventTouchUpInside) do
-      save
-    end
+  def textFieldShouldReturn(target)
+    save target.text
   end
 
-  def addCancelButton
-    cancel_button = UIButton.buttonWithType UIButtonTypeRoundedRect
-    cancel_button.setTitle 'Cancel', forState:UIControlStateNormal
-    cancel_button.frame = [[200, 10], [100, 30]]
-    self.view.addSubview cancel_button
-    cancel_button.when(UIControlEventTouchUpInside) do
-      cancel
-    end
-  end
-
-  def save
+  def save description
     found_where = @locationManager.location.coordinate
-    puts "found here #{found_where.inspect}"
-    orphan = Orphan.new found_where.latitude, found_where.longitude, 'thing', 'image url'
-    #navigationController.popToRootViewControllerAnimated true
-    Orphanage.new.add orphan
-  end
-
-  def cancel
+    puts "found #{description} here #{found_where.inspect}"
+    orphan = Orphan.new found_where.latitude, found_where.longitude, description, 'image url'
     navigationController.popToRootViewControllerAnimated true
+    Orphanage.new.add orphan
   end
 end
