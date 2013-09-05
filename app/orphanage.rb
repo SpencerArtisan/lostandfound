@@ -17,4 +17,11 @@ class Orphanage
       end
     end
   end
+
+  def add orphan
+    hash_orphan = {'latitude' => orphan.lat, 'longitude' => orphan.lon, 'description' => orphan.description, 'image_url' => orphan.image_url}
+    json_orphan = BW::JSON.generate hash_orphan
+    puts "Saving orphan #{json_orphan}"
+    @service.save json_orphan
+  end
 end
