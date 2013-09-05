@@ -5,13 +5,13 @@ class LostController < UIViewController
   def viewDidLoad
     super
     view.frame = navigationController.view.bounds
+  end
+
+  def viewWillAppear(animated)
     create_map
     add_orphans
     center_map
     self.view.addSubview @map
-  end
-
-  def viewWillAppear(animated)
     self.navigationController.navigationBarHidden = false
   end
 
