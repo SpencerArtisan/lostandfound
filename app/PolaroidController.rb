@@ -41,6 +41,7 @@ class PolaroidController < UIViewController
   end
 
   def textFieldShouldReturn(target)
+    App.alert "We have added your found item to our map!"
     save target.text
   end
 
