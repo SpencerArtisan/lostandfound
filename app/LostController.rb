@@ -5,9 +5,10 @@ class LostController < UIViewController
   def viewDidLoad
     super
     view.frame = navigationController.view.bounds
+    refresh
   end
 
-  def viewWillAppear(animated)
+  def refresh
     create_map
     add_orphans
     center_map
