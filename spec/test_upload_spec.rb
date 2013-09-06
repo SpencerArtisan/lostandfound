@@ -25,10 +25,11 @@ describe 'a' do
   #
   it 'should resize images' do
     image = UIImage.imageNamed 'LandingPage'
-    image = ImageRepository.new.resize image
+    image = PolaroidController.new.resize image
+    p image.size
+    image = PolaroidController.new.crop image
     p image.size
     1.should == 1
     ImageRepository.new.store image, 'landing page'
-    puts MKMapView.alloc.methods
   end
 end

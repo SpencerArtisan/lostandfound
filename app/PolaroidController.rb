@@ -19,8 +19,10 @@ class PolaroidController < UIViewController
   end
 
   def setImage image
-    image = crop image
-    image = resize image
+    if image.size.width > 300
+      image = resize image
+      image = crop image
+    end
     @image = image
     @image_view.removeFromSuperview if @image_view
     @image_view = UIImageView.alloc.initWithImage(image)
@@ -36,13 +38,16 @@ class PolaroidController < UIViewController
 
   def resize image
     resizer = BOSImageResizeOperation.alloc.initWithImage(image)
-    resizer.resizeToFitWithinSize(CGSizeMake(320, 320))
+    resizer.resizeToFitWithinSize(CGSizeMake(250, 480))
     resizer.start
     resizer.result
   end
 
   def crop image
-    image
+    imageRef = CGImageCreateWithImageInRect(image.CGImage, CGRectMake(0, 100, 250, 240))
+    cropped = UIImage.imageWithCGImage(imageRef)
+    CGImageRelease(imageRef)
+    cropped
   end
 
   def trackLocation
