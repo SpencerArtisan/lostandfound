@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 $:.unshift("/Library/RubyMotion/lib")
+require 'rubygems'
 require 'motion/project/template/ios'
+require 'motion-cocoapods'
 require 'bubble-wrap'
 require 'bubble-wrap/location'
 require 'map-kit-wrapper'
@@ -17,4 +19,8 @@ Motion::Project::App.setup do |app|
   app.identifier = 'com.yourcompany.lostandfound'
   app.icons = ['Icon.png']
   app.prerendered_icon = true
+  app.pods do
+    pod 'AWSiOSSDK'
+    pod 'BOSImageResizeOperation'
+  end
 end

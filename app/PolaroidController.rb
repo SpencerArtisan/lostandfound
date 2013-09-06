@@ -12,6 +12,7 @@ class PolaroidController < UIViewController
   end
 
   def setImage image
+    @image = image
     @image_view.removeFromSuperview if @image_view
     @image_view = UIImageView.alloc.initWithImage(image)
     @image_view.frame = [[38, 30], [247, 240]]
@@ -48,7 +49,8 @@ class PolaroidController < UIViewController
   def save description
     found_where = @locationManager.location.coordinate
     puts "found #{description} here #{found_where.inspect}"
-    orphan = Orphan.new found_where.latitude, found_where.longitude, description, 'image url'
+    image_url = ImageRepository.new.store @image, description
+    orphan = Orphan.new found_where.latitude, found_where.longitude, description, image_url
     navigationController.popToRootViewControllerAnimated true
     Orphanage.new.add orphan
   end

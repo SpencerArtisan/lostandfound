@@ -1,0 +1,49 @@
+PODS:
+  - AWSiOSSDK (1.6.1):
+    - AWSiOSSDK/AutoScaling
+    - AWSiOSSDK/CloudWatch
+    - AWSiOSSDK/DynamoDB
+    - AWSiOSSDK/EC2
+    - AWSiOSSDK/ElasticLoadBalancing
+    - AWSiOSSDK/Runtime
+    - AWSiOSSDK/S3
+    - AWSiOSSDK/SES
+    - AWSiOSSDK/SimpleDB
+    - AWSiOSSDK/SNS
+    - AWSiOSSDK/SQS
+    - AWSiOSSDK/STS
+  - AWSiOSSDK/AutoScaling (1.6.1):
+    - AWSiOSSDK/Runtime
+  - AWSiOSSDK/CloudWatch (1.6.1):
+    - AWSiOSSDK/Runtime
+  - AWSiOSSDK/DynamoDB (1.6.1):
+    - AWSiOSSDK/Runtime
+  - AWSiOSSDK/EC2 (1.6.1):
+    - AWSiOSSDK/Runtime
+  - AWSiOSSDK/ElasticLoadBalancing (1.6.1):
+    - AWSiOSSDK/Runtime
+  - AWSiOSSDK/Runtime (1.6.1):
+    - AWSiOSSDK/DynamoDB
+  - AWSiOSSDK/S3 (1.6.1):
+    - AWSiOSSDK/Runtime
+  - AWSiOSSDK/SES (1.6.1):
+    - AWSiOSSDK/Runtime
+  - AWSiOSSDK/SimpleDB (1.6.1):
+    - AWSiOSSDK/Runtime
+  - AWSiOSSDK/SNS (1.6.1):
+    - AWSiOSSDK/Runtime
+  - AWSiOSSDK/SQS (1.6.1):
+    - AWSiOSSDK/Runtime
+  - AWSiOSSDK/STS (1.6.1):
+    - AWSiOSSDK/Runtime
+  - BOSImageResizeOperation (0.1.0)
+
+DEPENDENCIES:
+  - AWSiOSSDK
+  - BOSImageResizeOperation
+
+SPEC CHECKSUMS:
+  AWSiOSSDK: b90180bdabbe6c1e4b6d239ee39300f5381cb092
+  BOSImageResizeOperation: 301cf26dee926abd52fc0a4664b77486b276f0f3
+
+COCOAPODS: 0.24.0
