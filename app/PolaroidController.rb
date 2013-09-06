@@ -22,7 +22,7 @@ class PolaroidController < UIViewController
     @image = image
     @image_view.removeFromSuperview if @image_view
     @image_view = UIImageView.alloc.initWithImage(image)
-    @image_view.frame = [[38, 30], [247, 240]]
+    @image_view.frame = [[37, 30], [248, 240]]
     view.addSubview(@image_view)
 
     image = UIImage.imageNamed 'SmallPin'
@@ -38,6 +38,8 @@ class PolaroidController < UIViewController
   end
 
   def addDescriptionEntryBox
+    @description_input.removeFromSuperview if @description_input
+    @description_label.removeFromSuperview if @description_label
     @description_input = UITextField.alloc.initWithFrame [[40, 280], [244, 30]]
     @description_input.backgroundColor = UIColor.clearColor
     @description_input.setBorderStyle UITextBorderStyleNone
@@ -49,6 +51,8 @@ class PolaroidController < UIViewController
   end
 
   def addDescriptionLabel orphan
+    @description_input.removeFromSuperview if @description_input
+    @description_label.removeFromSuperview if @description_label
     @description_label = UILabel.alloc.initWithFrame [[40, 280], [244, 30]]
     @description_label.backgroundColor = UIColor.clearColor
     @description_label.font = UIFont.fontWithName 'MarkerFelt-Thin', size: 24
