@@ -17,9 +17,9 @@ describe Orphanage do
     orphan.found_at.should == Time.local(2013, 9, 3, 15, 40, 35)
   end
   
-  it 'should save an orphan' do
-    orphan = Orphan.new 1,2,3,4
-    Orphanage.new.add orphan
-    1.should == 1
-  end
+  #it 'should save an orphan' do
+    #orphan = Orphan.new 1,2,3,4
+    #Orphanage.new.add orphan
+    #1.should == 1
+  #end
 end

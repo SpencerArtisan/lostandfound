@@ -29,5 +29,6 @@ describe 'a' do
     p image.size
     1.should == 1
     ImageRepository.new.store image, 'landing page'
+    puts MKMapView.alloc.methods
   end
 end
