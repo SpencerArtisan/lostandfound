@@ -2,13 +2,20 @@ class PolaroidController < UIViewController
   def viewDidLoad
     super
     createBackground
-    trackLocation
-    addDescriptionEntryBox
   end
 
   def createBackground
     image = UIImage.imageNamed 'NoticeBoard'
     self.view.backgroundColor = UIColor.alloc.initWithPatternImage image
+  end
+
+  def storeOrphan
+    trackLocation
+    addDescriptionEntryBox
+  end
+
+  def showOrphan orphan
+    addDescriptionLabel orphan
   end
 
   def setImage image
@@ -39,6 +46,15 @@ class PolaroidController < UIViewController
     @description_input.becomeFirstResponder
     @description_input.delegate = self
     self.view.addSubview @description_input
+  end
+
+  def addDescriptionLabel orphan
+    @description_label = UILabel.alloc.initWithFrame [[40, 280], [244, 30]]
+    @description_label.backgroundColor = UIColor.clearColor
+    @description_label.font = UIFont.fontWithName 'MarkerFelt-Thin', size: 24
+    @description_label.textAlignment = UITextAlignmentCenter
+    @description_label.text = orphan.title
+    self.view.addSubview @description_label
   end
 
   def textFieldShouldReturn(target)

@@ -17,6 +17,7 @@ class FoundController < UIViewController
   def add_image_view(image)
     controller = UIApplication.sharedApplication.delegate.polaroid_controller
     controller.setImage image
+    controller.storeOrphan
     navigationController.pushViewController controller, animated:true
   end
 end

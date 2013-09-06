@@ -42,14 +42,12 @@ class LostController < UIViewController
     detailButton.when(UIControlEventTouchUpInside) do
       controller = UIApplication.sharedApplication.delegate.polaroid_controller
       navigationController.pushViewController controller, animated:true
-      p annotation
       puts "Gathering image from #{annotation.image_url}"
-      puts annotation.image_url.methods
       image_url = NSURL.URLWithString annotation.image_url.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
-      puts "Gathering image from url #{image_url}"
       imageData = NSData.dataWithContentsOfURL image_url
       image = UIImage.imageWithData imageData
       controller.setImage image
+      controller.showOrphan annotation
     end
     pinView.rightCalloutAccessoryView = detailButton
     pinView
