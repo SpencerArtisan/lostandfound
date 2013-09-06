@@ -3,8 +3,6 @@ class ImageRepository
   SECRET_KEY    = "KE7aSh2PAFZhAPvxOFo9vLz1HFKG5Gujxc4AlrNJ"
 
   def store image, name
-    image = resize image
-
     key = "#{name} - #{BubbleWrap.create_uuid}"
     @s3 = AmazonS3Client.alloc.initWithAccessKey(ACCESS_KEY_ID, withSecretKey: SECRET_KEY)
     imageData = UIImageJPEGRepresentation(image, 1.0)
@@ -22,12 +20,5 @@ class ImageRepository
     end
 
     "https://s3.amazonaws.com/LostAndFound/#{key}"
-  end
-
-  def resize image
-    resizer = BOSImageResizeOperation.alloc.initWithImage(image)
-    resizer.resizeToFitWithinSize(CGSizeMake(320, 320))
-    resizer.start
-    resizer.result
   end
 end

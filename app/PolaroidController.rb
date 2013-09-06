@@ -19,10 +19,12 @@ class PolaroidController < UIViewController
   end
 
   def setImage image
+    image = crop image
+    image = resize image
     @image = image
     @image_view.removeFromSuperview if @image_view
     @image_view = UIImageView.alloc.initWithImage(image)
-    @image_view.frame = [[37, 30], [248, 240]]
+    @image_view.frame = [[36, 30], [249, 240]]
     view.addSubview(@image_view)
 
     image = UIImage.imageNamed 'SmallPin'
@@ -30,6 +32,17 @@ class PolaroidController < UIViewController
     @pin_view = UIImageView.alloc.initWithImage(image)
     @pin_view.frame = [[140, 3], [38, 38]]
     view.addSubview(@pin_view)
+  end
+
+  def resize image
+    resizer = BOSImageResizeOperation.alloc.initWithImage(image)
+    resizer.resizeToFitWithinSize(CGSizeMake(320, 320))
+    resizer.start
+    resizer.result
+  end
+
+  def crop image
+    image
   end
 
   def trackLocation
