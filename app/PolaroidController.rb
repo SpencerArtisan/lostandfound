@@ -1,6 +1,7 @@
 class PolaroidController < UIViewController
   def viewDidLoad
     super
+    trackLocation
     createBackground
   end
 
@@ -10,7 +11,6 @@ class PolaroidController < UIViewController
   end
 
   def storeOrphan
-    trackLocation
     addDescriptionEntryBox
   end
 
@@ -44,9 +44,9 @@ class PolaroidController < UIViewController
   end
 
   def crop image
-    imageRef = CGImageCreateWithImageInRect(image.CGImage, CGRectMake(0, 100, 250, 240))
+    imageRef = CGImageCreateWithImageInRect(image.CGImage, CGRectMake(0, 50, 250, 240))
     cropped = UIImage.imageWithCGImage(imageRef)
-    CGImageRelease(imageRef)
+    #CGImageRelease(imageRef)
     cropped
   end
 
