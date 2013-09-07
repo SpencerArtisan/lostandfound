@@ -32,4 +32,8 @@ class SplashController < UIViewController
       controller.take_picture
     end
   end
+
+  def shouldAutorotateToInterfaceOrientation(orientation)
+    false
+  end
 end
