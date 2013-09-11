@@ -7,18 +7,18 @@ class AppDelegate
   end
 
   def splash_controller
-    @splash_controller ||= SplashController.alloc.init
+    @splash_controller ||= SplashController.new
   end
 
   def lost_controller
-    @lost_controller ||= LostController.alloc.init
+    @lost_controller ||= LostController.new
   end
 
   def found_controller
-    @found_controller ||= FoundController.alloc.init
+    @found_controller ||= FoundController.new
   end
 
   def orphan_controller
-    @orphan_controller ||= OrphanController.alloc.init
+    @orphan_controller ||= OrphanController.new
   end
 end

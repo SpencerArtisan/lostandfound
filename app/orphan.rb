@@ -19,5 +19,9 @@ Orphan = Struct.new(:lat, :lon, :description, :image_url, :found_at) do
     time = (found_at + found_at.utc_offset).strftime('%H:%M')
     "Found #{day} at #{time}"
   end
+
+  def image
+    UIImage.imageWithData NSData.dataWithContentsOfURL NSURL.URLWithString(image_url)
+  end
 end
 

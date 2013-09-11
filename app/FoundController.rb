@@ -1,15 +1,13 @@
 class FoundController < UIViewController
-  def viewDidLoad
-    view.backgroundColor = UIColor.grayColor
-  end
+  SIMULATOR_IMAGE = UIImage.imageNamed('LandingPage')
 
   def take_picture
     if Device.simulator?
-      add_image_view UIImage.imageNamed('LandingPage')
+      show_orphan_view SIMULATOR_IMAGE
     else
       BW::Device.camera.rear.picture(media_types: [:image]) do |result|
         if result[:original_image]
-          add_image_view result[:original_image]
+          show_orphan_view result[:original_image]
         else
           navigationController.popViewControllerAnimated true
         end
@@ -17,10 +15,9 @@ class FoundController < UIViewController
     end
   end
 
-  def add_image_view(image)
+  def show_orphan_view(image)
     controller = UIApplication.sharedApplication.delegate.orphan_controller
-    controller.setImage image
-    controller.storeOrphan
+    controller.storeOrphan image
     navigationController.pushViewController controller, animated:true
   end
 end

@@ -3,12 +3,12 @@ class LostController < UIViewController
   ZoomLevel = CoordinateSpan.new 0.25, 0.25
 
   def viewDidLoad
-    super
     view.frame = navigationController.view.bounds
     refresh
   end
 
   def refresh
+    @map.removeFromSuperview if @map
     create_map
     add_orphans
     center_map
@@ -17,12 +17,11 @@ class LostController < UIViewController
   end
 
   def center_map
-    @@region ||= nil
-    @map.region = @@region if @@region
     BW::Location.get(significant: true) do |result|
-      @@region = CoordinateRegion.new result[:to], ZoomLevel
-      @map.region = @@region
+      @region = CoordinateRegion.new result[:to], ZoomLevel
+      @map.region = @region if @region
     end
+    @map.region = @region if @region
   end
 
   def create_map
@@ -30,7 +29,6 @@ class LostController < UIViewController
     @map.frame = self.view.frame
     @map.delegate = self
     @map.shows_user_location = true
-    @map.delegate = self
   end
 
   def mapView(target, viewForAnnotation: annotation)
@@ -40,17 +38,16 @@ class LostController < UIViewController
     pinView.canShowCallout = true
     detailButton = UIButton.buttonWithType UIButtonTypeDetailDisclosure
     detailButton.when(UIControlEventTouchUpInside) do
-      controller = UIApplication.sharedApplication.delegate.orphan_controller
-      navigationController.pushViewController controller, animated:true
-      puts "Gathering image from #{annotation.image_url}"
-      image_url = NSURL.URLWithString annotation.image_url.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
-      imageData = NSData.dataWithContentsOfURL image_url
-      image = UIImage.imageWithData imageData
-      controller.setImage image
-      controller.showOrphan annotation
+      showOrphan annotation
     end
     pinView.rightCalloutAccessoryView = detailButton
     pinView
+  end
+
+  def showOrphan annotation
+    controller = UIApplication.sharedApplication.delegate.orphan_controller
+    navigationController.pushViewController controller, animated:true
+    controller.showOrphan annotation
   end
 
   def add_orphans

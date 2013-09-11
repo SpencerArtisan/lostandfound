@@ -6,49 +6,57 @@ class OrphanController < UIViewController
   end
 
   def createBackground
-    image = UIImage.imageNamed 'NoticeBoard'
-    self.view.backgroundColor = UIColor.alloc.initWithPatternImage image
+    background = UIImage.imageNamed 'NoticeBoard'
+    self.view.backgroundColor = UIColor.alloc.initWithPatternImage background
   end
 
-  def storeOrphan
+  def storeOrphan image
+    setImage image
     addDescriptionEntryBox
   end
 
   def showOrphan orphan
+    setImage orphan.image
     addDescriptionLabel orphan
   end
 
-  def setImage image
-    if image.size.width > 300
-      image = resize image
-      image = crop image
-    end
-    @image = image
-    @image_view.removeFromSuperview if @image_view
-    @image_view = UIImageView.alloc.initWithImage(image)
-    @image_view.frame = [[36, 30], [249, 240]]
-    view.addSubview(@image_view)
+  private
 
-    image = UIImage.imageNamed 'SmallPin'
+  def setImage image
+    orphan_image = resize image
+
+    @image = orphan_image
+    @image_view.removeFromSuperview if @image_view
+    @image_view = UIImageView.alloc.initWithImage orphan_image
+    @image_view.frame = [[36, 30], [249, 240]]
+    view.addSubview @image_view
+
+    pin_image = UIImage.imageNamed 'SmallPin'
     @pin_view.removeFromSuperview if @pin_view
-    @pin_view = UIImageView.alloc.initWithImage(image)
+    @pin_view = UIImageView.alloc.initWithImage pin_image
     @pin_view.frame = [[140, 3], [38, 38]]
-    view.addSubview(@pin_view)
+    view.addSubview @pin_view
   end
 
   def resize image
-    App.alert image.size.inspect    
-    resizer = BOSImageResizeOperation.alloc.initWithImage(image)
-    resizer.resizeToFitWithinSize(CGSizeMake(333, 333))
-    resizer.start
-    resizer.result
+    if image.size.width > 300
+      image = shrink image
+      image = crop image
+    end
+    image
+  end
+
+  def shrink image
+    shrinker = BOSImageResizeOperation.alloc.initWithImage image
+    shrinker.resizeToFitWithinSize CGSizeMake(333, 333)
+    shrinker.start
+    shrinker.result
   end
 
   def crop image
-    App.alert image.size.inspect    
     crop_rect = image.size.height > image.size.width ? CGRectMake(0, 42, 248, 248) : CGRectMake(42, 0, 248, 248)
-    imageRef = CGImageCreateWithImageInRect(image.CGImage, crop_rect)
-    UIImage.imageWithCGImage(imageRef)
+    imageRef = CGImageCreateWithImageInRect image.CGImage, crop_rect
+    UIImage.imageWithCGImage imageRef
   end
 
   def trackLocation
@@ -89,6 +97,7 @@ class OrphanController < UIViewController
     found_where = @locationManager.location.coordinate
     puts "found #{description} here #{found_where.inspect}"
     image_url = ImageRepository.new.store @image, description
+    image_url = image_url.stringByAddingPercentEscapesUsingEncoding NSUTF8StringEncoding
     orphan = Orphan.new found_where.latitude, found_where.longitude, description, image_url
     navigationController.popToRootViewControllerAnimated true
     Orphanage.new.add orphan
