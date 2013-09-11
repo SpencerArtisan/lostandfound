@@ -37,17 +37,18 @@ class PolaroidController < UIViewController
   end
 
   def resize image
+    App.alert image.size.inspect    
     resizer = BOSImageResizeOperation.alloc.initWithImage(image)
-    resizer.resizeToFitWithinSize(CGSizeMake(250, 480))
+    resizer.resizeToFitWithinSize(CGSizeMake(333, 333))
     resizer.start
     resizer.result
   end
 
   def crop image
-    imageRef = CGImageCreateWithImageInRect(image.CGImage, CGRectMake(0, 50, 250, 240))
-    cropped = UIImage.imageWithCGImage(imageRef)
-    #CGImageRelease(imageRef)
-    cropped
+    App.alert image.size.inspect    
+    crop_rect = image.size.height > image.size.width ? CGRectMake(0, 42, 248, 248) : CGRectMake(42, 0, 248, 248)
+    imageRef = CGImageCreateWithImageInRect(image.CGImage, crop_rect)
+    UIImage.imageWithCGImage(imageRef)
   end
 
   def trackLocation
