@@ -1,4 +1,4 @@
-class PolaroidController < UIViewController
+class OrphanController < UIViewController
   def viewDidLoad
     super
     trackLocation

@@ -18,7 +18,7 @@ class AppDelegate
     @found_controller ||= FoundController.alloc.init
   end
 
-  def polaroid_controller
-    @polaroid_controller ||= PolaroidController.alloc.init
+  def orphan_controller
+    @orphan_controller ||= OrphanController.alloc.init
   end
 end

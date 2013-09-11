@@ -40,7 +40,7 @@ class LostController < UIViewController
     pinView.canShowCallout = true
     detailButton = UIButton.buttonWithType UIButtonTypeDetailDisclosure
     detailButton.when(UIControlEventTouchUpInside) do
-      controller = UIApplication.sharedApplication.delegate.polaroid_controller
+      controller = UIApplication.sharedApplication.delegate.orphan_controller
       navigationController.pushViewController controller, animated:true
       puts "Gathering image from #{annotation.image_url}"
       image_url = NSURL.URLWithString annotation.image_url.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)

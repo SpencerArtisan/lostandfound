@@ -23,13 +23,10 @@ describe 'a' do
     #1.should == 1
   #end
   #
-  it 'should resize images' do
-    image = UIImage.imageNamed 'LandingPage'
-    image = PolaroidController.new.resize image
-    p image.size
-    image = PolaroidController.new.crop image
-    p image.size
-    1.should == 1
-    ImageRepository.new.store image, 'landing page'
-  end
+  #it 'should resize images' do
+    #image = UIImage.imageNamed 'LandingPage'
+    #image = OrphanController.new.resize image
+    #image = OrphanController.new.crop image
+    #ImageRepository.new.store image, 'landing page'
+  #end
 end
