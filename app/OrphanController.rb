@@ -73,6 +73,7 @@ class OrphanController < UIViewController
     @description_input.font = UIFont.fontWithName 'MarkerFelt-Thin', size: 24
     @description_input.textAlignment = UITextAlignmentCenter
     @description_input.becomeFirstResponder
+    @description_input.returnKeyType = UIReturnKeyDone
     @description_input.delegate = self
     self.view.addSubview @description_input
   end
