@@ -4,16 +4,17 @@ class LostController < UIViewController
 
   def viewDidLoad
     view.frame = navigationController.view.bounds
+  end
+
+  def viewDidAppear(animated)
     refresh
   end
 
   def refresh
-    @map.removeFromSuperview if @map
-    create_map
-    add_orphans
-    center_map
-    self.view.addSubview @map
     self.navigationController.navigationBarHidden = false
+    create_map
+    center_map
+    add_orphans
   end
 
   def center_map
@@ -25,10 +26,12 @@ class LostController < UIViewController
   end
 
   def create_map
+    @map.removeFromSuperview if @map
     @map = MapView.new
     @map.frame = self.view.frame
     @map.delegate = self
     @map.shows_user_location = true
+    self.view.addSubview @map
   end
 
   def mapView(target, viewForAnnotation: annotation)
@@ -42,7 +45,7 @@ class LostController < UIViewController
     end
     pinView.rightCalloutAccessoryView = detailButton
     pinView
-  end
+    end
 
   def showOrphan annotation
     controller = UIApplication.sharedApplication.delegate.orphan_controller
@@ -51,6 +54,8 @@ class LostController < UIViewController
   end
 
   def add_orphans
-    Orphanage.new.each { |orphan| @map.addAnnotation orphan }  
+    Orphanage.new.each do |orphan| 
+      @map.addAnnotation orphan 
+    end
   end
 end

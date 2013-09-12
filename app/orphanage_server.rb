@@ -3,17 +3,17 @@ class OrphanageServer
 
   def all &block
     BW::HTTP.get(URL) do |response|
-      puts "RESPONSE"
-      puts response
-      block.call response.body.to_str
+      if response.ok?
+        block.call response.body.to_str
+      else
+        error = Exception.new "There was a problem connecting to the internet.  Please try again later."
+        UIApplication.sharedApplication.delegate.handle_error error
+      end
     end
   end
 
   def save orphan
     payload = {payload: {orphan: orphan}}
-    puts "Posting new orphan #{payload}"
-    BW::HTTP.post(URL, payload) do |response|
-      p response
-    end
+    BW::HTTP.post URL, payload
   end
 end

@@ -3,6 +3,7 @@ class AppDelegate
     @window = UIWindow.alloc.initWithFrame(UIScreen.mainScreen.bounds)
     @window.makeKeyAndVisible
     @window.rootViewController = UINavigationController.alloc.initWithRootViewController splash_controller
+
     true
   end
 
@@ -20,5 +21,10 @@ class AppDelegate
 
   def orphan_controller
     @orphan_controller ||= OrphanController.new
+  end
+
+  def handle_error error
+    App.alert error.message
+    @window.rootViewController.popToViewController splash_controller, animated: false
   end
 end

@@ -13,13 +13,8 @@ class Orphanage
   end
 
   def each &block
-    begin
-      @service.all do |json|
-        extract_orphans json, &block
-      end
-    rescue => e
-      puts e
-      App.alert "There was a problem connecting to the internet."
+    @service.all do |json|
+      extract_orphans json, &block
     end
   end
 
@@ -30,7 +25,7 @@ class Orphanage
         orphan = from_json json_orphan
         block.call orphan
       rescue => e
-        puts "Failed to build orphan from json: #{json}.  Error was #{e}"
+        puts "Failed to build orphan from json: #{json_orphan}.  Error was #{e}"
       end
     end
   end

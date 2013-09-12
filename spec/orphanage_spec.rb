@@ -5,7 +5,7 @@ describe Orphanage do
     end
 
     orphans = []
-    Orphanage.new(service).all do |orphan|
+    Orphanage.new(service).each do |orphan|
       orphans << orphan
     end
     orphans.length.should == 1
