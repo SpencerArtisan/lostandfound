@@ -19,7 +19,9 @@ Motion::Project::App.setup do |app|
   app.identifier = 'com.yourcompany.lostandfound'
   app.icons = ['Icon.png']
   app.prerendered_icon = true
-  app.interface_orientations = [:portrait]
+  #app.interface_orientations = [:portrait]
+  app.vendor_project('vendor/Frank', :static)
+  app.frameworks << 'CFNetwork' 
   app.pods do
     pod 'AWSiOSSDK'
     pod 'BOSImageResizeOperation'
